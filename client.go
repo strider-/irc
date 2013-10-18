@@ -139,7 +139,8 @@ func (c *Client) startReadLoop() {
 			break
 		} else {
 			msg := c.parseMessage(strings.TrimRight(line, "\r\n"))
-			if funcs, exists := c.callbacks[msg.Command]; !exists {
+			funcs, exists := c.callbacks[msg.Command]
+			if !exists {
 				funcs = c.callbacks["*"]
 			}
 			for _, cb := range funcs {
