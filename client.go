@@ -47,7 +47,11 @@ func (c *Client) Connect() error {
 }
 
 func (c *Client) Disconnect() {
-	c.Writeln("QUIT")
+	c.Quit("Disconnecting")
+}
+
+func (c *Client) Quit(msg string) {
+	c.Writeln("QUIT :%s", msg)
 	c.stopPing <- true
 	c.done <- true
 }
